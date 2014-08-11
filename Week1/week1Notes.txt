@@ -1,0 +1,33 @@
+Provability:
+Replication > Reproducibilty > Nothing
+
+Reproducible Research:
+Data/Metadata available
+Code available
+Documentation of code and data
+Standard means of distribution
+
+Parties:
+Authors
+Readers
+
+Minimize work: Made code a readable document
+Literate programs can be "weaved" to produce human readable documents 
+and "tangled" to produce machine readable documents
+
+Knitr for literate statistical programming
+
+Protip: Script EVERYTHING
+
+Steps in analysis
+1) Define Q
+2) Define ideal data
+3) Determine sources
+4) Get data
+5) Clean data
+6) Exploratory Analysis
+7) Statistical Prediction / Modeling
+8) Interpret Results
+9) Challenge Results
+10) Synthesize / write up results
+11) Create reproducible code
