@@ -66,4 +66,4 @@ table(predictedSpam, testSpam$type)
 ## Error rate
 (61 + 458)/(1346 + 458 + 61 + 449)
 
-#Stop @ ~10 min
+

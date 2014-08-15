@@ -1,0 +1,37 @@
+* Italics *
+** Bold **
+# h1
+## h2
+### h3
+
+ul
+- 
+-
+-
+*
+*
+*
+
+ol - Not necessarily in order
+1.
+2.
+3.
+
+Links:
+[Text](url)
+
+Advanced Linking:
+... Doc ...
+[Text][Num]
+... Doc ...
+
+@ end of Doc
+[Num]: link "Text"
+
+The first text must be the same as the second Text
+Likewise for Num
+
+Is the "Text" really necessary?
+
+New lines
+Double spaces at end of a line
