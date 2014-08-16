@@ -1,0 +1,62 @@
+# My First knitr Document
+Jeremiah Tantongco
+
+## Introduction
+
+```{r setoptions, echo=FALSE}
+#Makes it so that executed code will by default not be displayed
+library(knitr)
+opts_chunk$set(echo=F, results='hide')
+
+#asis -> no R pre/post html processing
+#hide -> do not display
+#fig.height: numeric
+#fid.width: numeric
+#cache = true -> to save results, update requires recaching
+# caching not usable in cases where there are code side effects
+```
+
+This is some text (ie a "text chunk"). Here is a code chunk but it doesn't print anything!
+
+echo option is whether you want to print code out in document
+results is the command line output of the code
+
+```{r simulation, echo=FALSE,results='hide'}
+#```{r simulation, echo=FALSE} 
+set.seed(1)
+x <- rnorm(100)
+mean(x)
+```
+
+```{r computetime,echo=FALSE}
+time <- format(Sys.time(),"%a %b %d %X %Y")
+rand <- rnorm(1)
+```
+
+The current time is `r time`. My favorite random number is `r rand`.
+
+Let's first simulate some data
+```{r simulatedata, echo=TRUE}
+x <- rnorm(100); y <- x + rnorm(100, sd=0.5)
+```
+
+Here is a scatterplot of the data
+
+```{r scatterplot, fig.height=4}
+#note embeds the image in the html file and not separate img file
+par(mar=c(5,4,1,1), las=1)
+plot(x,y, main = "My Simulated Data")
+```
+
+```{r fitmodel}
+library(datasets)
+data(airquality)
+fit <- lm(Ozone ~ Wind + Temp + Solar.R, data=airquality)
+```
+
+Here is a table of regression coefficients
+```{r showtable, results='asis'}
+library(xtable)
+xt <- xtable(summary(fit))
+print(xt, type="html")
+```

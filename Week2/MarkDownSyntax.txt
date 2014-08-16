@@ -35,3 +35,7 @@ Is the "Text" really necessary?
 
 New lines
 Double spaces at end of a line
+
+For Markdown in R - RStudio has basic markdown templates,
+One the first create, may / will ask for updates packages
+ie knitr, yaml, etc.
