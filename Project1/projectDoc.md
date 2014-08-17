@@ -11,7 +11,8 @@ This is a submission for Peer Assessment 1 for Coursera: Reproducible Research.
 
 First some default settings:
 
-```{r setoptions, echo=TRUE}
+
+```r
 library(knitr)
 opts_chunk$set(echo=T, results='asis')
 ```
@@ -20,7 +21,8 @@ opts_chunk$set(echo=T, results='asis')
 
 Here is the code to read the file and some basic processing for the next couple of sections.
 
-```{r readData}
+
+```r
 activityData <- read.table("./activity.csv", sep=",", header=TRUE, na.strings = 'NA')
 intervals <- unique(activityData$interval)
 dates <- unique(activityData$date)
@@ -33,26 +35,33 @@ intervalActivityData <- split(activityData,activityData$interval)
 
 Below is the code for the requested plot and calculation of the mean and median.
 
-```{r statsPerDay}
+
+```r
 totalStepsPerDay <- sapply(dayActivityData,function(x) sum(x$steps,na.rm=FALSE))
 hist(totalStepsPerDay, 
      main="Raw total steps per day histogram",
      xlab="steps per day",
      ylab="Frequency",
      col="orange")
+```
+
+![plot of chunk statsPerDay](figure/statsPerDay.png) 
+
+```r
 meanStepsPerDay <- mean(totalStepsPerDay, na.rm=TRUE)
 medianStepsPerDay <- median(totalStepsPerDay, na.rm=TRUE)
 ```
 
-The mean total steps per day is `r meanStepsPerDay` .
+The mean total steps per day is 1.0766 &times; 10<sup>4</sup> .
 
-The median total steps per day is `r medianStepsPerDay` .
+The median total steps per day is 10765 .
 
 # Section 3: Average Daily Pattern
 
 The average daily pattern and peak is calculated using the following code:
 
-```{r avgPattern}
+
+```r
 averageIntervalActivityData <- sapply(intervalActivityData,function(x) mean(x$steps,na.rm=TRUE))
 plot(x=intervals,
      y=averageIntervalActivityData,
@@ -60,14 +69,18 @@ plot(x=intervals,
      xlab="steps per day",
      ylab="Frequency",
      type="l")
+```
 
+![plot of chunk avgPattern](figure/avgPattern.png) 
+
+```r
 maxSteps <- max(averageIntervalActivityData)
 intervalIndex <- which.max(averageIntervalActivityData)
 maxStepsInterval <- intervals[intervalIndex]
 ```
 
-The peak # of steps is `r maxSteps`.
-The peak occurs in the `r maxStepsInterval` interval.
+The peak # of steps is 206.1698.
+The peak occurs in the 835 interval.
 
 # Section 4: Input Missing Values
 
@@ -76,7 +89,8 @@ The scheme chosen was to replace any NA values with the mean steps for that time
 
 The code for doing so is below:
 
-```{r inputMissingValues,results='hide'}
+
+```r
 library(data.table)
 DT = data.table(steps=activityData$steps,
                 date=activityData$date,
@@ -97,7 +111,8 @@ DT[,modified_Steps:={
 
 The code to calculate the basic stats similar to section 2 is present here as well as a similar plot.
 
-``` {r modStatsPerDay}
+
+```r
 numOfNAs <- sum(DT$need_filler)
 modDayActivityData <- split(DT,DT$date)
 modTotalStepsPerDay <- sapply(modDayActivityData, function(x) sum(x$modified_Steps,na.rm=FALSE))
@@ -106,13 +121,18 @@ hist(modTotalStepsPerDay,
      xlab="steps per day",
      ylab="Frequency",
      col = 'blue')
+```
+
+![plot of chunk modStatsPerDay](figure/modStatsPerDay.png) 
+
+```r
 modMeanStepsPerDay <- mean(modTotalStepsPerDay, na.rm=FALSE)
 modMedianStepsPerDay <- median(modTotalStepsPerDay, na.rm=FALSE)
 ```
 
-The modified mean total steps per day is `r modMeanStepsPerDay` .
+The modified mean total steps per day is 1.0766 &times; 10<sup>4</sup> .
 
-The modified median total steps per day is `r modMedianStepsPerDay` .
+The modified median total steps per day is 1.0766 &times; 10<sup>4</sup> .
 
 # Section 5: Weekdays vs Weekends
 
@@ -120,7 +140,8 @@ Since we are comparing the weekdays to the weekends, a decision variable is now 
 
 The code for that is below.
 
-``` {r weekdayVsWeekend, results='hide'}
+
+```r
 DT[, weekday := weekdays(as.Date(date))]
 daysRecord <- DT$weekday
 weekSection <- sapply(daysRecord, function(x) ifelse(x == "Saturday" || x == "Sunday","Weekend","Weekday") )
@@ -141,6 +162,11 @@ plot(x=intervals,
      xlab="intervals (5 minutes)",
      ylab="steps",
      type="l")
+```
+
+![plot of chunk weekdayVsWeekend](figure/weekdayVsWeekend1.png) 
+
+```r
 plot(x=intervals,
      y=weekdayAvgIntervalActivityData,
      main="Modified weekday average step pattern",
@@ -148,6 +174,8 @@ plot(x=intervals,
      ylab="steps",
      type="l")
 ```
+
+![plot of chunk weekdayVsWeekend](figure/weekdayVsWeekend2.png) 
 
 Comparing the two plots, it would appear that the peak number of steps is higher for weekdays.
 It is also important to note that weekend activity seems to higher intensity activity throughtout the day.
