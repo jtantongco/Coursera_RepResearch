@@ -1,0 +1,13 @@
+Project 1 Eval: Good Samples
+
+Neat and organized use of ggplot2
+https://github.com/MikkelPorse/RepData_PeerAssessment1
+
+Another good presentation one
+https://github.com/Iurii-Dziuban/RepData_PeerAssessment1/blob/master/PA1_template.md
+
+Easy way of getting the name of a max value in a factor
+names(which.max(average_number_of_steps_per_interval))
+
+if(!file.exists("activity.csv"))
+    unzip("activity.zip")

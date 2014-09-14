@@ -1,0 +1,13 @@
+Note that R has a unzip fcn used as follows:
+
+if(!file.exists("activity.csv"))
+    unzip("activity.zip")
+
+data <- read.table(...)
+
+Views the environment information of R
+With some hardware data as well
+sessionInfo()
+
+code the seed so it is known and pseudo random numbers can be reproduced
+set.seed(...)
